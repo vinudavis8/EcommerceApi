@@ -55,14 +55,6 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0A447061835F43EDAD43CE3456DC5831 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0F8EA6EABF08489C8B82599621387A87 }}
 
-      - name: Apply EF Core Migrations
-        run: |
-          cd ${{env.DOTNET_ROOT}}/myapp
-          dotnet ef database update --environment "Production"
-        env:
-          DOTNET_CLI_HOME: /tmp  # This is required for .NET CLI on Ubuntu-based runners (for temp folder issues)
-          ASPNETCORE_ENVIRONMENT: "Production"  # Ensure you're targeting the correct environment
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
